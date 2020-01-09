@@ -7,4 +7,4 @@ runs:
 inputs:
   thanks-message:
     description: Say thanks
-    default: Thanks for opening an issue ❤!
+    default: You got it 👍!
