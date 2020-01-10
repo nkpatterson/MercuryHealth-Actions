@@ -13,7 +13,8 @@ const run = async (): Promise<void> => {
 
         let appName = "", armTemplate = "", environmentType = "Development"
 
-        const lines = issue.body.match(/[^\r\n]+/g);
+        console.log(issue.body)
+        const lines = issue.body.match(/[^\r\n]+/g)
         if (!lines) return
 
         for (var i=0;i<lines.length;i++) {
