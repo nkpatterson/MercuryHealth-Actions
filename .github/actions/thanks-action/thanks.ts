@@ -3,9 +3,6 @@ import * as github from '@actions/github'
 
 const run = async (): Promise<void> => {
   try {
-    // Limit only to when issues are opened (not edited, closed, etc.)
-    if (github.context.payload.action !== 'opened') return
-
     // Check the payload
     const issue = github.context.payload.issue
     if (!issue) return
