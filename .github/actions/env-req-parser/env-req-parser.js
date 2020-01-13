@@ -31,6 +31,7 @@ const run = async () => {
         }
         if (!approved) {
             console.log("Issue is not approved.");
+            core.setOutput('approved', 'false');
             return;
         }
         let appName = "", armTemplate = "", environmentType = "Dev";
@@ -54,7 +55,8 @@ const run = async () => {
         }
         core.setOutput('appName', appName);
         core.setOutput('armTemplate', armTemplate);
-        core.setOutput('environmentType', environmentType); // TODO
+        core.setOutput('environmentType', environmentType);
+        core.setOutput('approved', 'true');
     }
     catch (error) {
         console.error(error.message);

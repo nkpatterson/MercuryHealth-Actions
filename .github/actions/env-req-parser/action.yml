@@ -11,3 +11,5 @@ outputs:
     description: 'Refers to the ARM templates in the /templates directory [vmss-windows-nat,web-app-sql-database,function-app]'
   environmentType:
     description: 'Environment type can be [Development, Staging, Production]'
+  approved:
+    description: 'Validates that the issue has an approved label applied'

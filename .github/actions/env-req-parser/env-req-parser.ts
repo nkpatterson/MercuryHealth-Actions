@@ -22,6 +22,7 @@ const run = async (): Promise<void> => {
 
         if (!approved) {
             console.log("Issue is not approved.")
+            core.setOutput('approved', 'false')
             return
         }
 
@@ -48,7 +49,8 @@ const run = async (): Promise<void> => {
 
         core.setOutput('appName', appName)
         core.setOutput('armTemplate', armTemplate)
-        core.setOutput('environmentType', environmentType) // TODO
+        core.setOutput('environmentType', environmentType)
+        core.setOutput('approved', 'true')
     } catch (error) {
         console.error(error.message)
         core.setFailed(`Thanks-action failure: ${error}`)

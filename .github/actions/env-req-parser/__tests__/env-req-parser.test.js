@@ -36,4 +36,24 @@ describe('parse environment request body', () => {
         expect(setOutputMock).toHaveBeenCalledWith('armTemplate', 'web-app-sql-database');
         expect(setOutputMock).toHaveBeenCalledWith('environmentType', 'Dev');
     });
+    it('sets approved to true', async () => {
+        const setOutputMock = jest.spyOn(core, 'setOutput');
+        await env_req_parser_1.default();
+        expect(setOutputMock).toHaveBeenCalledWith('approved', 'true');
+    });
+    it('sets approved to false if no label', async () => {
+        const setOutputMock = jest.spyOn(core, 'setOutput');
+        github.context.payload = {
+            action: 'labeled',
+            issue: {
+                number: 1,
+                body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n-[x] Development",
+                labels: [
+                    { name: "bleh" }
+                ]
+            },
+        };
+        await env_req_parser_1.default();
+        expect(setOutputMock).toHaveBeenCalledWith('approved', 'false');
+    });
 });

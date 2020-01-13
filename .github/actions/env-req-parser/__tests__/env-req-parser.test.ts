@@ -38,4 +38,26 @@ describe('parse environment request body', () => {
       'Dev'
     )
   })
+
+  it ('sets approved to true', async() => {
+    const setOutputMock = jest.spyOn(core, 'setOutput')
+    await run()
+    expect(setOutputMock).toHaveBeenCalledWith('approved', 'true')
+  })
+
+  it ('sets approved to false if no label', async() => {
+    const setOutputMock = jest.spyOn(core, 'setOutput')
+    github.context.payload = {
+      action: 'labeled',
+      issue: {
+        number: 1,
+        body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n-[x] Development",
+        labels: [
+          { name: "bleh" }
+        ]
+      },
+    } as WebhookPayload
+    await run()
+    expect(setOutputMock).toHaveBeenCalledWith('approved', 'false')
+  })
 })
