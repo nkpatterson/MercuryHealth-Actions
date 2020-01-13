@@ -16,7 +16,7 @@ const thanks_1 = __importDefault(require("../thanks"));
 beforeEach(() => {
     jest.resetModules();
     github.context.payload = {
-        action: 'opened',
+        action: 'labeled',
         issue: {
             number: 1,
         },

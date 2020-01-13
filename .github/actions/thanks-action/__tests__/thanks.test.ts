@@ -7,7 +7,7 @@ beforeEach(() => {
   jest.resetModules()
 
   github.context.payload = {
-    action: 'opened',
+    action: 'labeled',
     issue: {
       number: 1,
     },

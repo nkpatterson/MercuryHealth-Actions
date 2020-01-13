@@ -11,9 +11,6 @@ const core = __importStar(require("@actions/core"));
 const github = __importStar(require("@actions/github"));
 const run = async () => {
     try {
-        // Limit only to when issues are opened (not edited, closed, etc.)
-        if (github.context.payload.action !== 'opened')
-            return;
         // Check the payload
         const issue = github.context.payload.issue;
         if (!issue)
