@@ -15,7 +15,7 @@ beforeEach(() => {
 })
 
 describe('thanks action', () => {
-  it('adds a thanks comment and heart reaction', async () => {
+  it('adds a thanks comment and +1 reaction', async () => {
     process.env['INPUT_THANKS-MESSAGE'] = 'Thanks for opening an issue ❤!'
     process.env['GITHUB_REPOSITORY'] = 'example/repository'
     process.env['GITHUB_TOKEN'] = '12345'
@@ -28,8 +28,8 @@ describe('thanks action', () => {
       .reply(200, {url: 'https://github.com/example/repository/issues/1#comment'})
 
     nock('https://api.github.com')
-      .post('/repos/example/repository/issues/1/reactions', body => body.content === 'heart')
-      .reply(200, {content: 'heart'})
+      .post('/repos/example/repository/issues/1/reactions', body => body.content === '+1')
+      .reply(200, {content: '+1'})
 
     await run()
   })

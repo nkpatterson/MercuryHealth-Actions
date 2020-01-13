@@ -3,15 +3,29 @@ import * as github from '@actions/github'
 
 const run = async (): Promise<void> => {
     try {
-        // Limit only to when issues are opened (not edited, closed, etc.)
-        if (github.context.payload.action !== 'opened') return
+        // Limit only to when issues are labeled (not edited, closed, etc.)
+        if (github.context.payload.action !== 'labeled') return
     
         // Check the payload
         const issue = github.context.payload.issue
         if (!issue) return
         if (!issue.body) return
+        if (!issue.labels) return
+        let approved = false;
 
-        let appName = "", armTemplate = "", environmentType = "Development"
+        for (var i=0;i<issue.labels.length;i++) {
+            if (issue.labels[i].name == "approved") {
+                approved = true
+                break
+            }
+        }
+
+        if (!approved) {
+            console.log("Issue is not approved.")
+            return
+        }
+
+        let appName = "", armTemplate = "", environmentType = "Dev"
 
         console.log(issue.body)
         const lines = issue.body.match(/[^\r\n]+/g)
@@ -26,6 +40,10 @@ const run = async (): Promise<void> => {
                 armTemplate = "web-app-sql-database"
             if (lines[i].startsWith("- [x] Serverless"))
                 armTemplate = "function-app"
+            if (lines[i].startsWith("- [x] Staging"))
+                environmentType = "Stage"
+            if (lines[i].startsWith("- [x] Production"))
+                environmentType = "Prod"
         }
 
         core.setOutput('appName', appName)

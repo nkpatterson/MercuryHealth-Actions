@@ -41,7 +41,7 @@ const run = async () => {
             owner,
             repo,
             issue_number: issue.number,
-            content: 'heart',
+            content: '+1',
         });
         console.log(`Reacted: ${issueReactionResponse.data.content}`);
     }

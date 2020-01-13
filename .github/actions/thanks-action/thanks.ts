@@ -35,7 +35,7 @@ const run = async (): Promise<void> => {
       owner,
       repo,
       issue_number: issue.number,
-      content: 'heart',
+      content: '+1',
     })
     console.log(`Reacted: ${issueReactionResponse.data.content}`)
   } catch (error) {

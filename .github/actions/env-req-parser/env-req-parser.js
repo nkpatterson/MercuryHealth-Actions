@@ -11,8 +11,8 @@ const core = __importStar(require("@actions/core"));
 const github = __importStar(require("@actions/github"));
 const run = async () => {
     try {
-        // Limit only to when issues are opened (not edited, closed, etc.)
-        if (github.context.payload.action !== 'opened')
+        // Limit only to when issues are labeled (not edited, closed, etc.)
+        if (github.context.payload.action !== 'labeled')
             return;
         // Check the payload
         const issue = github.context.payload.issue;
@@ -20,7 +20,21 @@ const run = async () => {
             return;
         if (!issue.body)
             return;
-        let appName = "", armTemplate = "", environmentType = "Development";
+        if (!issue.labels)
+            return;
+        let approved = false;
+        for (var i = 0; i < issue.labels.length; i++) {
+            if (issue.labels[i].name == "approved") {
+                approved = true;
+                break;
+            }
+        }
+        if (!approved) {
+            console.log("Issue is not approved.");
+            return;
+        }
+        let appName = "", armTemplate = "", environmentType = "Dev";
+        console.log(issue.body);
         const lines = issue.body.match(/[^\r\n]+/g);
         if (!lines)
             return;
@@ -33,6 +47,10 @@ const run = async () => {
                 armTemplate = "web-app-sql-database";
             if (lines[i].startsWith("- [x] Serverless"))
                 armTemplate = "function-app";
+            if (lines[i].startsWith("- [x] Staging"))
+                environmentType = "Stage";
+            if (lines[i].startsWith("- [x] Production"))
+                environmentType = "Prod";
         }
         core.setOutput('appName', appName);
         core.setOutput('armTemplate', armTemplate);

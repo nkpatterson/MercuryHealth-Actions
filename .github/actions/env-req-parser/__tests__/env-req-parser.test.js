@@ -16,10 +16,13 @@ const env_req_parser_1 = __importDefault(require("../env-req-parser"));
 beforeEach(() => {
     jest.resetModules();
     github.context.payload = {
-        action: 'opened',
+        action: 'labeled',
         issue: {
             number: 1,
-            body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)"
+            body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n-[x] Development",
+            labels: [
+                { name: "approved" }
+            ]
         },
     };
 });
@@ -31,5 +34,6 @@ describe('parse environment request body', () => {
         await env_req_parser_1.default();
         expect(setOutputMock).toHaveBeenCalledWith('appName', 'SuperCoolFunApp');
         expect(setOutputMock).toHaveBeenCalledWith('armTemplate', 'web-app-sql-database');
+        expect(setOutputMock).toHaveBeenCalledWith('environmentType', 'Dev');
     });
 });

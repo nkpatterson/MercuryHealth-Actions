@@ -7,10 +7,13 @@ beforeEach(() => {
   jest.resetModules()
 
   github.context.payload = {
-    action: 'opened',
+    action: 'labeled',
     issue: {
       number: 1,
-      body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)"
+      body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n-[x] Development",
+      labels: [
+        { name: "approved" }
+      ]
     },
   } as WebhookPayload
 })
@@ -29,6 +32,10 @@ describe('parse environment request body', () => {
     expect(setOutputMock).toHaveBeenCalledWith(
       'armTemplate',
       'web-app-sql-database'
+    )
+    expect(setOutputMock).toHaveBeenCalledWith(
+      'environmentType',
+      'Dev'
     )
   })
 })
