@@ -27,6 +27,7 @@ const run = async (): Promise<void> => {
         }
 
         let appName = "", armTemplate = "", environmentType = "Dev"
+        let applyPolicy = false, policyToApply = ""
 
         console.log(issue.body)
         const lines = issue.body.match(/[^\r\n]+/g)
@@ -45,12 +46,23 @@ const run = async (): Promise<void> => {
                 environmentType = "Stage"
             if (lines[i].startsWith("- [x] Production"))
                 environmentType = "Prod"
+            if (lines[i].startsWith("- [x] PCI")) {
+                applyPolicy = true
+                policyToApply = "PCI-DSS"
+            }
+            if (lines[i].startsWith("- [x] HIPAA")) {
+                applyPolicy = true
+                policyToApply = "HIPAA"
+            }
         }
 
         core.setOutput('appName', appName)
         core.setOutput('armTemplate', armTemplate)
         core.setOutput('environmentType', environmentType)
         core.setOutput('approved', 'true')
+        core.setOutput('applyPolicy', applyPolicy ? 'true' : 'false')
+        core.setOutput('policyToApply', policyToApply)
+
     } catch (error) {
         console.error(error.message)
         core.setFailed(`Thanks-action failure: ${error}`)

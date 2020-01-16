@@ -10,7 +10,7 @@ beforeEach(() => {
     action: 'labeled',
     issue: {
       number: 1,
-      body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n-[x] Development",
+      body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n- [x] Development\r\n- [x] PCI-DSS Compliance Required",
       labels: [
         { name: "approved" }
       ]
@@ -59,5 +59,12 @@ describe('parse environment request body', () => {
     } as WebhookPayload
     await run()
     expect(setOutputMock).toHaveBeenCalledWith('approved', 'false')
+  })
+
+  it ('sets applyPolicy to true with policy name', async() => {
+    const setOutputMock = jest.spyOn(core, 'setOutput')
+    await run()
+    expect(setOutputMock).toHaveBeenCalledWith('applyPolicy', 'true')
+    expect(setOutputMock).toHaveBeenCalledWith('policyToApply', 'PCI-DSS')
   })
 })
