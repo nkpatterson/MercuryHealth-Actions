@@ -1,16 +1,19 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
+import * as fs from 'fs'
 import run from '../env-req-parser'
 import { WebhookPayload } from '@actions/github/lib/interfaces'
 
 beforeEach(() => {
   jest.resetModules()
 
+  let body = fs.readFileSync('./.github/actions/env-req-parser/__tests__/sampleIssue01.txt')
+
   github.context.payload = {
     action: 'labeled',
     issue: {
       number: 1,
-      body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n- [x] Development\r\n- [x] PCI-DSS (for apps that process payment information)\r\n- [ ] HIPAA",
+      body: body.toString(),
       labels: [
         { name: "approved" }
       ]

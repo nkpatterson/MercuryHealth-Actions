@@ -1,0 +1,16 @@
+### Application Information
+Application Name: SuperCoolFunApp
+Business Justification: Boss said so
+Link to Application Repo: nkpatterson/MercuryHealth-Web
+
+### Technical Information
+**Host Environment Type:**
+- [ ] General Compute/VMs (load-balanced Windows VM Scale Set)
+- [x] Web App Hosting (Azure App Service+SQL Database combination)
+- [ ] Container App (Azure Kubernetes Service)
+- [ ] Serverless/Event-Driven (Azure Function App environment)
+
+### Security
+**Compliance Requirements:**
+- [x] PCI-DSS (for apps that process payment information)
+- [ ] HIPAA (for apps that store health information)

@@ -12,14 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
 const github = __importStar(require("@actions/github"));
+const fs = __importStar(require("fs"));
 const env_req_parser_1 = __importDefault(require("../env-req-parser"));
 beforeEach(() => {
     jest.resetModules();
+    let body = fs.readFileSync('./.github/actions/env-req-parser/__tests__/sampleIssue01.txt');
     github.context.payload = {
         action: 'labeled',
         issue: {
             number: 1,
-            body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n- [x] Development\r\n- [x] PCI-DSS (for apps that process payment information)\r\n- [ ] HIPAA",
+            body: body.toString(),
             labels: [
                 { name: "approved" }
             ]
