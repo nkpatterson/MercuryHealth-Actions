@@ -34,7 +34,6 @@ describe('parse environment request body', () => {
         await env_req_parser_1.default();
         expect(setOutputMock).toHaveBeenCalledWith('appName', 'SuperCoolFunApp');
         expect(setOutputMock).toHaveBeenCalledWith('armTemplate', 'web-app-sql-database');
-        expect(setOutputMock).toHaveBeenCalledWith('environmentType', 'Dev');
     });
     it('sets approved to true', async () => {
         const setOutputMock = jest.spyOn(core, 'setOutput');

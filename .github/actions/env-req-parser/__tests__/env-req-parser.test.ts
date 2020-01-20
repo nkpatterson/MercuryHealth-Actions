@@ -33,10 +33,6 @@ describe('parse environment request body', () => {
       'armTemplate',
       'web-app-sql-database'
     )
-    expect(setOutputMock).toHaveBeenCalledWith(
-      'environmentType',
-      'Dev'
-    )
   })
 
   it ('sets approved to true', async() => {

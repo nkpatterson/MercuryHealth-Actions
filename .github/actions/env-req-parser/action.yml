@@ -9,11 +9,9 @@ outputs:
     description: Name of app as input by requester
   armTemplate:
     description: 'Refers to the ARM templates in the /templates directory [vmss-windows-nat,web-app-sql-database,function-app]'
-  environmentType:
-    description: 'Environment type can be [Development, Staging, Production]'
   approved:
     description: 'Validates that the issue has an approved label applied'
   applyPolicy:
-    description: 'Indicates that a Blueprint policy needs to be assigned'
+    description: 'Indicates that a policy set needs to be assigned'
   policyToApply:
-    description: 'Which Blueprint to apply to the resources'
+    description: 'Which policy set to apply to the resources'

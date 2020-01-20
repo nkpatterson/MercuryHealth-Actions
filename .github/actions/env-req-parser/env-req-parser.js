@@ -34,8 +34,7 @@ const run = async () => {
             core.setOutput('approved', 'false');
             return;
         }
-        let appName = "", armTemplate = "", environmentType = "Dev";
-        let applyPolicy = false, policyToApply = "";
+        let appName = "", armTemplate = "", applyPolicy = false, policyToApply = "";
         console.log(issue.body);
         const lines = issue.body.match(/[^\r\n]+/g);
         if (!lines)
@@ -49,10 +48,6 @@ const run = async () => {
                 armTemplate = "web-app-sql-database";
             if (lines[i].startsWith("- [x] Serverless"))
                 armTemplate = "function-app";
-            if (lines[i].startsWith("- [x] Staging"))
-                environmentType = "Stage";
-            if (lines[i].startsWith("- [x] Production"))
-                environmentType = "Prod";
             if (lines[i].startsWith("- [x] PCI")) {
                 applyPolicy = true;
                 policyToApply = "PCI-DSS";
@@ -64,7 +59,6 @@ const run = async () => {
         }
         core.setOutput('appName', appName);
         core.setOutput('armTemplate', armTemplate);
-        core.setOutput('environmentType', environmentType);
         core.setOutput('approved', 'true');
         core.setOutput('applyPolicy', applyPolicy ? 'true' : 'false');
         core.setOutput('policyToApply', policyToApply);
