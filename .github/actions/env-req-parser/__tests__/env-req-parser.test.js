@@ -19,7 +19,7 @@ beforeEach(() => {
         action: 'labeled',
         issue: {
             number: 1,
-            body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n- [x] Development\r\n- [x] PCI-DSS Compliance Required",
+            body: "Application Name: SuperCoolFunApp\r\n- [x] Web App Hosting (Azure App Service+SQL Database combination)\r\n- [x] Development\r\n- [x] PCI-DSS (for apps that process payment information)\r\n- [ ] HIPAA",
             labels: [
                 { name: "approved" }
             ]
