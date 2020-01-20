@@ -61,6 +61,6 @@ describe('parse environment request body', () => {
     const setOutputMock = jest.spyOn(core, 'setOutput')
     await run()
     expect(setOutputMock).toHaveBeenCalledWith('applyPolicy', 'true')
-    expect(setOutputMock).toHaveBeenCalledWith('policyToApply', 'PCI-DSS')
+    expect(setOutputMock).toHaveBeenCalledWith('policyToApply', 'Audit PCI')
   })
 })
