@@ -13,5 +13,5 @@ outputs:
     description: 'Validates that the issue has an approved label applied'
   applyPolicy:
     description: 'Indicates that a policy set needs to be assigned'
-  policyToApply:
+  policyName:
     description: 'Which policy set to apply to the resources'

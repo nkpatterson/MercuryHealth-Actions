@@ -34,7 +34,7 @@ const run = async () => {
             core.setOutput('approved', 'false');
             return;
         }
-        let appName = "", armTemplate = "", applyPolicy = false, policyToApply = "";
+        let appName = "", armTemplate = "", applyPolicy = false, policyName = "";
         console.log(issue.body);
         const lines = issue.body.match(/[^\r\n]+/g);
         if (!lines)
@@ -50,18 +50,18 @@ const run = async () => {
                 armTemplate = "function-app";
             if (lines[i].startsWith("- [x] PCI")) {
                 applyPolicy = true;
-                policyToApply = "Audit PCI";
+                policyName = "Audit PCI";
             }
             if (lines[i].startsWith("- [x] HIPAA")) {
                 applyPolicy = true;
-                policyToApply = "Audit HITRUST/HIPAA";
+                policyName = "Audit HITRUST/HIPAA";
             }
         }
         core.setOutput('appName', appName);
         core.setOutput('armTemplate', armTemplate);
         core.setOutput('approved', 'true');
         core.setOutput('applyPolicy', applyPolicy ? 'true' : 'false');
-        core.setOutput('policyToApply', policyToApply);
+        core.setOutput('policyName', policyName);
     }
     catch (error) {
         console.error(error.message);
