@@ -22,13 +22,14 @@ const run = async () => {
             return;
         if (!issue.labels)
             return;
-        let approved = false;
-        for (var i = 0; i < issue.labels.length; i++) {
-            if (issue.labels[i].name == "approved") {
-                approved = true;
-                break;
-            }
-        }
+        // for (var i=0;i<issue.labels.length;i++) {
+        //     if (issue.labels[i].name == "approved") {
+        //         approved = true
+        //         break
+        //     }
+        // }
+        let labels = issue.labels;
+        let approved = labels.some(val => val.name == "approved");
         if (!approved) {
             console.log("Issue is not approved.");
             core.setOutput('approved', 'false');
