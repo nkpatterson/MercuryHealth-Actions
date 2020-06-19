@@ -22,12 +22,6 @@ const run = async () => {
             return;
         if (!issue.labels)
             return;
-        // for (var i=0;i<issue.labels.length;i++) {
-        //     if (issue.labels[i].name == "approved") {
-        //         approved = true
-        //         break
-        //     }
-        // }
         let labels = issue.labels;
         let approved = labels.some(val => val.name == "approved");
         if (!approved) {
@@ -51,11 +45,11 @@ const run = async () => {
                 armTemplate = "function-app";
             if (lines[i].startsWith("- [x] PCI")) {
                 applyPolicy = true;
-                policyName = "Audit PCI";
+                policyName = "PCI";
             }
             if (lines[i].startsWith("- [x] HIPAA")) {
                 applyPolicy = true;
-                policyName = "Audit HITRUST/HIPAA";
+                policyName = "HITRUST/HIPAA";
             }
         }
         core.setOutput('appName', appName);
