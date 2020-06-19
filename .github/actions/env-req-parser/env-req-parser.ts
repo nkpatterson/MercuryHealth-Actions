@@ -38,11 +38,11 @@ const run = async (): Promise<void> => {
                 armTemplate = "function-app"
             if (lines[i].startsWith("- [x] PCI")) {
                 applyPolicy = true
-                policyName = "Audit PCI"
+                policyName = "PCI"
             }
             if (lines[i].startsWith("- [x] HIPAA")) {
                 applyPolicy = true
-                policyName = "Audit HITRUST/HIPAA"
+                policyName = "HITRUST/HIPAA"
             }
         }
 
